@@ -16,14 +16,15 @@ public class AccessControl_Automaton {
 		q8 ("access granted"),
 		q9 ("access not granted");
 		
-		private String state;
+		private String stateString;
 		
 		private State(String state) {
-			this.state = state;
+			this.stateString = state;
 		}
 		
+		@Override
 		public String toString() {
-			return this.state;
+			return this.stateString;
 		}
 	}
 	
@@ -54,10 +55,296 @@ public class AccessControl_Automaton {
 	
 	private State[] finalStates = {State.q8};
 	
-	public void transitionFunction(Alphabet symbol) {
-		switch (symbol) {
-			
+	/**
+	 * this method contains the transition function and changes the state as is it is fed by it's wrapper
+	 */
+	public void feed(Alphabet symbol) {
+		switch (currentState) {
+		case q0:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q0;
+				break;
+			case digit2:
+				currentState = State.q0;
+				break;
+			case digit3:
+				currentState = State.q0;
+				break;
+			case digit4:
+				currentState = State.q0;
+				break;
+			case digit5:
+				currentState = State.q0;
+				break;
+			case digit6:
+				currentState = State.q0;
+				break;
+			case enter:
+				currentState = State.q0;
+				break;
+			case star:
+				currentState = State.q1;
+				break;
+			}
+			break;
+		case q1:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q2;
+				break;
+			case digit2:
+				currentState = State.q9;
+				break;
+			case digit3:
+				currentState = State.q9;
+				break;
+			case digit4:
+				currentState = State.q9;
+				break;
+			case digit5:
+				currentState = State.q9;
+				break;
+			case digit6:
+				currentState = State.q9;
+				break;
+			case enter:
+				currentState = State.q9;
+				break;
+			case star:
+				currentState = State.q9;
+				break;
+			}
+			break;
+		case q2:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q9;
+				break;
+			case digit2:
+				currentState = State.q3;
+				break;
+			case digit3:
+				currentState = State.q9;
+				break;
+			case digit4:
+				currentState = State.q9;
+				break;
+			case digit5:
+				currentState = State.q9;
+				break;
+			case digit6:
+				currentState = State.q9;
+				break;
+			case enter:
+				currentState = State.q9;
+				break;
+			case star:
+				currentState = State.q9;
+				break;
+			}
+			break;
+		case q3:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q9;
+				break;
+			case digit2:
+				currentState = State.q9;
+				break;
+			case digit3:
+				currentState = State.q4;
+				break;
+			case digit4:
+				currentState = State.q9;
+				break;
+			case digit5:
+				currentState = State.q9;
+				break;
+			case digit6:
+				currentState = State.q9;
+				break;
+			case enter:
+				currentState = State.q9;
+				break;
+			case star:
+				currentState = State.q9;
+				break;
+			}
+			break;
+		case q4:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q9;
+				break;
+			case digit2:
+				currentState = State.q9;
+				break;
+			case digit3:
+				currentState = State.q9;
+				break;
+			case digit4:
+				currentState = State.q5;
+				break;
+			case digit5:
+				currentState = State.q9;
+				break;
+			case digit6:
+				currentState = State.q9;
+				break;
+			case enter:
+				currentState = State.q9;
+				break;
+			case star:
+				currentState = State.q9;
+				break;
+			}
+			break;
+		case q5:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q9;
+				break;
+			case digit2:
+				currentState = State.q9;
+				break;
+			case digit3:
+				currentState = State.q9;
+				break;
+			case digit4:
+				currentState = State.q9;
+				break;
+			case digit5:
+				currentState = State.q6;
+				break;
+			case digit6:
+				currentState = State.q9;
+				break;
+			case enter:
+				currentState = State.q9;
+				break;
+			case star:
+				currentState = State.q9;
+				break;
+			}
+			break;
+		case q6:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q9;
+				break;
+			case digit2:
+				currentState = State.q9;
+				break;
+			case digit3:
+				currentState = State.q9;
+				break;
+			case digit4:
+				currentState = State.q9;
+				break;
+			case digit5:
+				currentState = State.q9;
+				break;
+			case digit6:
+				currentState = State.q7;
+				break;
+			case enter:
+				currentState = State.q9;
+				break;
+			case star:
+				currentState = State.q9;
+				break;
+			}
+			break;
+		case q7:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q9;
+				break;
+			case digit2:
+				currentState = State.q9;
+				break;
+			case digit3:
+				currentState = State.q9;
+				break;
+			case digit4:
+				currentState = State.q9;
+				break;
+			case digit5:
+				currentState = State.q9;
+				break;
+			case digit6:
+				currentState = State.q9;
+				break;
+			case enter:
+				currentState = State.q8;
+				break;
+			case star:
+				currentState = State.q9;
+				break;
+			}
+			break;
+		case q8:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q9;
+				break;
+			case digit2:
+				currentState = State.q9;
+				break;
+			case digit3:
+				currentState = State.q9;
+				break;
+			case digit4:
+				currentState = State.q9;
+				break;
+			case digit5:
+				currentState = State.q9;
+				break;
+			case digit6:
+				currentState = State.q9;
+				break;
+			case enter:
+				currentState = State.q9;
+				break;
+			case star:
+				currentState = State.q9;
+				break;
+			}
+			break;
+		case q9:
+			switch (symbol) {
+			case digit1:
+				currentState = State.q0;
+				break;
+			case digit2:
+				currentState = State.q0;
+				break;
+			case digit3:
+				currentState = State.q0;
+				break;
+			case digit4:
+				currentState = State.q0;
+				break;
+			case digit5:
+				currentState = State.q0;
+				break;
+			case digit6:
+				currentState = State.q0;
+				break;
+			case enter:
+				currentState = State.q0;
+				break;
+			case star:
+				currentState = State.q0;
+				break;
+			}
+			break;
 		}
+	}
+	
+	public boolean isInFinalState() {
+		return java.util.Arrays.asList(finalStates).contains(currentState);
 	}
 	
 }
