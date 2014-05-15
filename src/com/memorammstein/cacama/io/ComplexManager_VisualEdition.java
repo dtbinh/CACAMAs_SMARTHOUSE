@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import com.memorammstein.cacama.smarthouse.iBuilding;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
@@ -82,8 +84,30 @@ public class ComplexManager_VisualEdition implements Runnable {
 										lblNull.setText(lblNull.getText() + "Automaton #" + i + ": " + buildings.get(Integer.parseInt(command[1])).getRooms().get(Integer.parseInt(command[3])).getAutomatonWrappers().get(i).getAutomatonName() + "\n");
 								break;
 							}
+							switch (command[6]) {
+							case "feed":
+								String tempMessage = null;
+								tempMessage = "Possible input for each automaton:"
+										+ "\n" + "Access control: " + org.apache.commons.lang3.StringEscapeUtils.escapeJava("\"star\", \"enter\", \"number0\", \"number1\", \"number2\", \"number3\", \"number4\", \"number5\", \"number6\", \"number7\", \"number8\", \"number9\"")
+										+ "\n" + "Energy: " + org.apache.commons.lang3.StringEscapeUtils.escapeJava("\"programmed turn-off: in effective\", \"programmed turn-off: effective\", \"motion: off\", \"motion: on\"")
+										+ "\n" + "Ilumination: " + org.apache.commons.lang3.StringEscapeUtils.escapeJava("integer as a string, percentage representation, without percentage symbol")
+										+ "\n" + "Security: " + org.apache.commons.lang3.StringEscapeUtils.escapeJava("\"alarm: off\", \"alarm: on\", \"motion: off\", \"motion: on\", \"access: off\", \"access: on\"")
+										+ "\n" + "Temperature: " + org.apache.commons.lang3.StringEscapeUtils.escapeJava("double as a string");
+								int selectedOption = JOptionPane.showConfirmDialog(null, tempMessage, "Are you sure about your query? Press OK to continue", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+								if (selectedOption == JOptionPane.OK_OPTION) {
+									buildings.get(Integer.parseInt(command[1])).getRooms().get(Integer.parseInt(command[3])).getAutomatonWrappers().get(Integer.parseInt(command[5])).feed(command[7]);
+								}
+								break;
+							}
+							break;
+						case "disable":
+							buildings.get(Integer.parseInt(command[1])).getRooms().get(Integer.parseInt(command[3])).disable();
 							break;
 						}
+						break;
+					case "disable":
+						buildings.get(Integer.parseInt(command[1])).disable();
+						lblNull.setText("Building disabled");
 						break;
 					}
 					break;

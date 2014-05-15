@@ -39,7 +39,7 @@ public class Ilumination implements AutomatonWrapper {
 	}
 	
 	/**
-	 * @param symbol integer as a string, percentage representation
+	 * @param symbol integer as a string, percentage representation, without percentage symbol
 	 */
 	public void feed(String wrapperSymbol) {
 		Ilumination_Automaton.Alphabet symbol = null;
@@ -103,11 +103,11 @@ public class Ilumination implements AutomatonWrapper {
 		while (true) {
 			if (enabled) {
 				com.memorammstein.cacama.io.OutputManager.printAutomatonWrapperCurrent(this, automaton.getCurrentState().toString());
-				try {
-					Thread.sleep(Long.parseLong(Configuration.getInstance().getProperty("RefreshTimeInMillis")));
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			}
+			try {
+				Thread.sleep(Long.parseLong(Configuration.getInstance().getProperty("RefreshTimeInMillis")));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

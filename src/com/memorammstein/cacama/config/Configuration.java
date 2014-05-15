@@ -38,7 +38,7 @@ public class Configuration {
 		 
 				prop.setProperty("I_exist", "yes");
 				prop.setProperty("PrintColor", "true");
-				prop.setProperty("RefreshTimeInMillis", "10000");
+				prop.setProperty("RefreshTimeInMillis", "15000");
 				prop.setProperty("logFilename", "outputManager.log");
 				prop.setProperty("logWebpageFilename", "outputManager.html");
 				prop.setProperty("temperature_minimum", "22.5");

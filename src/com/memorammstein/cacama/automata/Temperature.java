@@ -103,11 +103,11 @@ public class Temperature implements AutomatonWrapper {
 		while (true) {
 			if (enabled) {
 				com.memorammstein.cacama.io.OutputManager.printAutomatonWrapperCurrent(this, automaton.getCurrentState().toString());
-				try {
-					Thread.sleep(Long.parseLong(Configuration.getInstance().getProperty("RefreshTimeInMillis")));
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			}
+			try {
+				Thread.sleep(Long.parseLong(Configuration.getInstance().getProperty("RefreshTimeInMillis")));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
