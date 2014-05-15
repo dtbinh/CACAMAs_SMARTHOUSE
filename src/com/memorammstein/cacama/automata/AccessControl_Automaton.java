@@ -3,7 +3,7 @@ package com.memorammstein.cacama.automata;
 import com.memorammstein.cacama.config.Configuration;
 
 public class AccessControl_Automaton {
-	
+
 	public enum State {
 		q0 ("idle"),
 		q1 ("transition"),
@@ -44,21 +44,29 @@ public class AccessControl_Automaton {
 			this.symbol = symbol;
 		}
 		
+		@Override
 		public String toString() {
 			return this.symbol;
 		}
+
+		public static Alphabet getSymbol(String symbolValue) {
+			Alphabet temp = null;
+			for (Alphabet symbol : Alphabet.values()) {
+				if (symbol.toString().equals(symbolValue)) {
+					temp = symbol;
+				}
+			}
+			return temp;
+		}
 	}
 	
-	private State initialState = State.q0;
+	private static State initialState = State.q0;
 	
 	private State currentState = initialState;
 	
-	private State[] finalStates = {State.q8};
+	private static State[] finalStates = {State.q8};
 	
-	/**
-	 * this method contains the transition function and changes the state as is it is fed by it's wrapper
-	 */
-	public void feed(Alphabet symbol) {
+	public void transitionFunction(Alphabet symbol) {
 		switch (currentState) {
 		case q0:
 			switch (symbol) {
@@ -343,8 +351,16 @@ public class AccessControl_Automaton {
 		}
 	}
 	
-	public boolean isInFinalState() {
-		return java.util.Arrays.asList(finalStates).contains(currentState);
+	public static State getInitialState() {
+		return initialState;
+	}
+
+	public State getCurrentState() {
+		return currentState;
+	}
+
+	public static State[] getFinalStates() {
+		return finalStates;
 	}
 	
 }

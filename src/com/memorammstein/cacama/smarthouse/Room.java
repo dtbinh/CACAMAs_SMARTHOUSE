@@ -17,6 +17,7 @@ public class Room implements Runnable {
 	}
 	
 	public void start() {
+		com.memorammstein.cacama.io.OutputManager.printRoom(this);
 		Thread thread = new Thread(this);
 		thread.start();
 	}

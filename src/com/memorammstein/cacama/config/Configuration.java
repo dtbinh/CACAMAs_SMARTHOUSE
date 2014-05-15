@@ -36,11 +36,12 @@ public class Configuration {
 				output = new FileOutputStream(filename);
 		 
 				prop.setProperty("I_exist", "yes");
+				//each password digit must be diferent
 				prop.setProperty("AccessControl_pass_digit1", "0");
 				prop.setProperty("AccessControl_pass_digit2", "1");
-				prop.setProperty("AccessControl_pass_digit3", "1");
-				prop.setProperty("AccessControl_pass_digit4", "2");
-				prop.setProperty("AccessControl_pass_digit5", "3");
+				prop.setProperty("AccessControl_pass_digit3", "2");
+				prop.setProperty("AccessControl_pass_digit4", "3");
+				prop.setProperty("AccessControl_pass_digit5", "4");
 				prop.setProperty("AccessControl_pass_digit6", "5");
 		 
 				prop.store(output, null);

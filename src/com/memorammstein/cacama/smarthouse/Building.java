@@ -30,6 +30,7 @@ public class Building implements Runnable {
 	}
 	
 	public void start() {
+		com.memorammstein.cacama.io.OutputManager.printBuilding(this);
 		Thread thread = new Thread(this);
 		thread.start();
 	}

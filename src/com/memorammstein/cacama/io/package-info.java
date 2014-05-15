@@ -5,4 +5,4 @@
  * @author Guillermo Iván Jiménez Ruvalcaba
  *
  */
-package com.memorammstein.cacama.output;
+package com.memorammstein.cacama.io;
