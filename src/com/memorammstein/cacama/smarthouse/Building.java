@@ -13,7 +13,6 @@ public class Building implements Runnable {
 	}
 	
 	public void addRoom(Room room) {
-		room.setName(this.name + ": " + room.getName());
 		rooms.add(room);
 	}
 	

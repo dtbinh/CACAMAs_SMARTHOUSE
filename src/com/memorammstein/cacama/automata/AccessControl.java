@@ -10,7 +10,7 @@ import com.memorammstein.cacama.config.Configuration;
 public class AccessControl implements AutomatonWrapper {
 	
 	private AccessControl_Automaton automaton = null;
-	private String name = null;
+	private String automatonName = null;
 	private boolean enabled = false;
 	private String[] password = {
 			Configuration.getInstance().getProperty("AccessControl_pass_digit1"),
@@ -37,13 +37,17 @@ public class AccessControl implements AutomatonWrapper {
 	}
 	
 	public AccessControl(String name) {
-		this.name = name;
+		setAutomatonName(name);
 		automaton = new AccessControl_Automaton();
 		enable();
 	}
 	
-	public String getName() {
-		return this.name;
+	public String getAutomatonName() {
+		return this.automatonName;
+	}
+	
+	public void setAutomatonName(String name) {
+		this.automatonName = name;
 	}
 	
 	public void enable() {
@@ -153,8 +157,14 @@ public class AccessControl implements AutomatonWrapper {
 	public void run() {
 		while (true) {
 			if (enabled) {
-				com.memorammstein.cacama.io.OutputManager.printAutomatonCurrent(automaton.getClass(), automaton.getCurrentState().toString());
+				com.memorammstein.cacama.io.OutputManager.printAutomatonWrapperCurrent(this, automaton.getCurrentState().toString());
+				try {
+					Thread.sleep(Long.parseLong(Configuration.getInstance().getProperty("RefreshTimeInMillis")));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
+
 }

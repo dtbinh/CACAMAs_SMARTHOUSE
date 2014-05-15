@@ -1,19 +1,34 @@
 package com.memorammstein.cacama.smarthouse;
 
+import java.util.ArrayList;
+
+import com.memorammstein.cacama.automata.AccessControl;
+import com.memorammstein.cacama.automata.AutomatonWrapper;
+
 public class Room implements Runnable {
 	
-	private String name = null;
+	private String roomName = null;
+	private ArrayList<AutomatonWrapper> automatons = null;
 	
-	public Room(String name) {
-		this.name = name;
+	private AccessControl accessControl = null;
+	
+	public Room(String roomName) {
+		setRoomName(roomName);
+		automatons = new ArrayList<AutomatonWrapper>();
+		accessControl = new AccessControl(this.getRoomName() + ": " + "Control de acceso");
+		addAutomaton(accessControl);
 	}
 	
-	public String getName() {
-		return name;
+	public String getRoomName() {
+		return this.roomName;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setRoomName(String name) {
+		this.roomName = name;
+	}
+	
+	public void addAutomaton(AutomatonWrapper aw) {
+		automatons.add(aw);
 	}
 	
 	public void start() {
@@ -24,8 +39,9 @@ public class Room implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		for (AutomatonWrapper automatonWrapper : automatons) {
+			automatonWrapper.start();
+		}
 	}
 	
 }

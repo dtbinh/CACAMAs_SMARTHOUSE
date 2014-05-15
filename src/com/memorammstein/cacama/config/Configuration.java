@@ -1,5 +1,6 @@
 package com.memorammstein.cacama.config;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,6 +37,8 @@ public class Configuration {
 				output = new FileOutputStream(filename);
 		 
 				prop.setProperty("I_exist", "yes");
+				prop.setProperty("RefreshTimeInMillis", "1500");
+				prop.setProperty("logFilename", "outputManager.log");
 				//each password digit must be diferent
 				prop.setProperty("AccessControl_pass_digit1", "0");
 				prop.setProperty("AccessControl_pass_digit2", "1");
@@ -56,7 +59,6 @@ public class Configuration {
 						e.printStackTrace();
 					}
 				}
-		 
 			}
 		}
 	}
@@ -71,6 +73,9 @@ public class Configuration {
 			if (prop.getProperty("I_exist") != null) {
 				return false;
 			}
+		} catch (FileNotFoundException e) {
+			//file doesn't exist
+			return true;
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return true;
@@ -78,23 +83,24 @@ public class Configuration {
 		return true;
 	}
 	
-	public String getProperty(String key) {
+	public synchronized String getProperty(String key) {
 		prop = new Properties();
 		input = null;
 		String propertyRetrieved = null;
-		
-		try {
-			input = new FileInputStream(filename);
-			prop.load(input);
-			propertyRetrieved = prop.getProperty(key);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+		while (propertyRetrieved == null) {
+			try {
+				input = new FileInputStream(filename);
+				prop.load(input);
+				propertyRetrieved = prop.getProperty(key);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} finally {
+				if (input != null) {
+					try {
+						input.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
