@@ -8,7 +8,7 @@ import com.memorammstein.cacama.config.Configuration;
 
 public class Ilumination implements AutomatonWrapper {
 	
-	private Temperature_Automaton automaton = null;
+	private Ilumination_Automaton automaton = null;
 	private String automatonName = null;
 	private boolean enabled = false;
 	private Map<String, Integer> range = null;
@@ -18,7 +18,7 @@ public class Ilumination implements AutomatonWrapper {
 		range = new HashMap<String, Integer>();
 		range.put("minimum", Integer.parseInt(Configuration.getInstance().getProperty("ilumination_minimum")));
 		range.put("maximum", Integer.parseInt(Configuration.getInstance().getProperty("ilumination_maximum")));
-		automaton = new Temperature_Automaton();
+		automaton = new Ilumination_Automaton();
 		this.enable();
 	}
 	
@@ -42,28 +42,28 @@ public class Ilumination implements AutomatonWrapper {
 	 * @param symbol integer as a string, percentage representation
 	 */
 	public void feed(String wrapperSymbol) {
-		Temperature_Automaton.Alphabet symbol = null;
+		Ilumination_Automaton.Alphabet symbol = null;
 		Double temp = Double.parseDouble(wrapperSymbol);
 		switch (automaton.getCurrentState()) {
 		case q0:
 			if (temp > range.get("maximum")) {
-				symbol = Temperature_Automaton.Alphabet.getSymbol(">max");
+				symbol = Ilumination_Automaton.Alphabet.getSymbol(">max");
 			} else if (temp < range.get("minimum")) {
-				symbol = Temperature_Automaton.Alphabet.getSymbol("<min");
+				symbol = Ilumination_Automaton.Alphabet.getSymbol("<min");
 			}
 			break;
 		case q1:
 			if (temp > range.get("maximum")) {
-				symbol = Temperature_Automaton.Alphabet.getSymbol(">max");
+				symbol = Ilumination_Automaton.Alphabet.getSymbol(">max");
 			} else if (temp > range.get("minimum")) {
-				symbol = Temperature_Automaton.Alphabet.getSymbol(">min");
+				symbol = Ilumination_Automaton.Alphabet.getSymbol(">min");
 			}
 			break;
 		case q2:
 			if (temp < range.get("maximum")) {
-				symbol = Temperature_Automaton.Alphabet.getSymbol("<max");
+				symbol = Ilumination_Automaton.Alphabet.getSymbol("<max");
 			} else if (temp < range.get("minimum")) {
-				symbol = Temperature_Automaton.Alphabet.getSymbol("<min");
+				symbol = Ilumination_Automaton.Alphabet.getSymbol("<min");
 			}
 			break;
 		}
@@ -73,7 +73,7 @@ public class Ilumination implements AutomatonWrapper {
 	}
 	
 	public boolean isAccepted() {
-		return java.util.Arrays.asList(Temperature_Automaton.getFinalStates()).contains(automaton.getCurrentState());
+		return java.util.Arrays.asList(Ilumination_Automaton.getFinalStates()).contains(automaton.getCurrentState());
 	}
 	
 	public void start() {
@@ -81,19 +81,19 @@ public class Ilumination implements AutomatonWrapper {
 		Map<String, String> alphabetMap = new HashMap<String, String>();
 		ArrayList<String> finalStatesArrayList = new ArrayList<String>();
 		
-		for (Temperature_Automaton.State state : Temperature_Automaton.State.values()) {
+		for (Ilumination_Automaton.State state : Ilumination_Automaton.State.values()) {
 			statesMap.put(state.name(), state.toString());
 		}
 		
-		for (Temperature_Automaton.Alphabet symbol : Temperature_Automaton.Alphabet.values()) {
+		for (Ilumination_Automaton.Alphabet symbol : Ilumination_Automaton.Alphabet.values()) {
 			alphabetMap.put(symbol.name(), symbol.toString());
 		}
 		
-		for (Temperature_Automaton.State state : Temperature_Automaton.getFinalStates()) {
+		for (Ilumination_Automaton.State state : Ilumination_Automaton.getFinalStates()) {
 			statesMap.put(state.name(), state.toString());
 		}
 		
-		com.memorammstein.cacama.io.OutputManager.printAutomatonTotal(automaton.getClass(), statesMap, alphabetMap, Temperature_Automaton.getInitialState().toString(), finalStatesArrayList, automaton.getCurrentState().toString());
+		com.memorammstein.cacama.io.OutputManager.printAutomatonTotal(automaton.getClass(), statesMap, alphabetMap, Ilumination_Automaton.getInitialState().toString(), finalStatesArrayList, automaton.getCurrentState().toString());
 		Thread thread = new Thread(this);
 		thread.start();
 	}

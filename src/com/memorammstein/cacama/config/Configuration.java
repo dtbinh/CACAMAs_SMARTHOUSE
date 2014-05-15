@@ -37,6 +37,7 @@ public class Configuration {
 				output = new FileOutputStream(filename);
 		 
 				prop.setProperty("I_exist", "yes");
+				prop.setProperty("PrintColor", "true");
 				prop.setProperty("RefreshTimeInMillis", "1500");
 				prop.setProperty("logFilename", "outputManager.log");
 				prop.setProperty("temperature_minimum", "22.5");
@@ -74,7 +75,7 @@ public class Configuration {
 		try {
 			input = new FileInputStream(filename);
 			prop.load(input);
-			if (prop.getProperty("I_exist") != null) {
+			if (prop.getProperty("I_exist").equals("yes")) {
 				return false;
 			}
 		} catch (FileNotFoundException e) {

@@ -2,14 +2,14 @@ package com.memorammstein.cacama.smarthouse;
 
 import java.util.ArrayList;
 
-public class Building implements Runnable {
+public class Building implements iBuilding {
 	
-	private ArrayList<Room> rooms = null;
+	private ArrayList<iRoom> rooms = null;
 	private String name = null;
 	
 	public Building(String name) {
 		this.name = name;
-		rooms = new ArrayList<Room>();
+		rooms = new ArrayList<iRoom>();
 	}
 	
 	public void addRoom(Room room) {
@@ -20,11 +20,11 @@ public class Building implements Runnable {
 		rooms.remove(roomIndex);
 	}
 	
-	public ArrayList<Room> getRooms() {
+	public ArrayList<iRoom> getRooms() {
 		return rooms;
 	}
 	
-	public String getName() {
+	public String getBuildingName() {
 		return name;
 	}
 	
@@ -36,10 +36,24 @@ public class Building implements Runnable {
 
 	@Override
 	public void run() {
-		for (Room room : rooms) {
+		for (iRoom room : rooms) {
 			room.start();
 		}
 		
+	}
+
+	@Override
+	public void enable() {
+		for (iRoom room : getRooms()) {
+			room.enable();
+		}
+	}
+
+	@Override
+	public void disable() {
+		for (iRoom room : getRooms()) {
+			room.disable();
+		}
 	}
 	
 }

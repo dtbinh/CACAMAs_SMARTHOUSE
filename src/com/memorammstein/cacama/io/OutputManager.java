@@ -1,10 +1,5 @@
 package com.memorammstein.cacama.io;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
@@ -12,53 +7,34 @@ import java.util.Map.Entry;
 
 import com.memorammstein.cacama.automata.AutomatonWrapper;
 import com.memorammstein.cacama.config.Configuration;
-import com.memorammstein.cacama.smarthouse.Building;
-import com.memorammstein.cacama.smarthouse.Room;
+import com.memorammstein.cacama.smarthouse.iBuilding;
+import com.memorammstein.cacama.smarthouse.iRoom;
 
 import static org.fusesource.jansi.Ansi.*;
 import static org.fusesource.jansi.Ansi.Color.*;
 
 public class OutputManager {
-	
-	private static String logFilename = null;
-	private static File file = null;
-	private static BufferedWriter bw = null;
+
 	private static String stringToOutput = null;
 	
-	public static synchronized void saveStringlnToFile(String string) {
-		logFilename = Configuration.getInstance().getProperty("logFilename");
-		try {
-			file = new File(logFilename);
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			bw = new BufferedWriter(fw);
-			bw.write(string + "\n");
-			bw.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (bw != null) {
-				try {
-					bw.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
 	private static void initAnsi() {
-		org.fusesource.jansi.AnsiConsole.systemInstall();
+		if (Boolean.parseBoolean(Configuration.getInstance().getProperty("PrintColor")))
+			org.fusesource.jansi.AnsiConsole.systemInstall();
 	}
 	
 	private static void endAnsi() {
 		System.out.print("\n");
-		saveStringlnToFile("\n");
-		org.fusesource.jansi.AnsiConsole.systemUninstall();
+		FileManager.getInstance().saveStringlnToFile("");
+		if (Boolean.parseBoolean(Configuration.getInstance().getProperty("PrintColor")))
+			org.fusesource.jansi.AnsiConsole.systemUninstall();
+	}
+	
+	public static synchronized void printColor(Color background, Color foreground, String text) {
+		if (Boolean.parseBoolean(Configuration.getInstance().getProperty("PrintColor"))) {
+			System.out.println(ansi().bg(background).fg(foreground).a(text).reset());
+		} else {
+			System.out.println(text);
+		}
 	}
 	
 	public static synchronized void printAutomatonTotal
@@ -72,97 +48,102 @@ public class OutputManager {
 	) {
 		initAnsi();
 		stringToOutput = "printAutomatonTotal(Class<?> automaton, Map<String, String> states, Map<String, String> alphabet, String initialState, ArrayList<String> finalStates, String currentState)";
-		System.out.println(ansi().bg(CYAN).fg(MAGENTA).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(CYAN, MAGENTA, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		stringToOutput = Calendar.getInstance().getTime().toString();
-		System.out.println(ansi().bg(YELLOW).fg(BLACK).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
-		stringToOutput = "Automaton name: " + automaton.getName();
-		System.out.println(ansi().bg(WHITE).fg(BLACK).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(YELLOW, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
+		stringToOutput = "Automaton class name: " + automaton.getName();
+		printColor(WHITE, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		stringToOutput = "States:";
-		System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(GREEN, WHITE, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		java.util.Iterator<Entry<String, String>> it = states.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry<String, String> pairs = (Map.Entry<String, String>)it.next();
 	        stringToOutput = pairs.getKey() + " = " + pairs.getValue();
-	        System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-	        saveStringlnToFile(stringToOutput);
+	        printColor(GREEN, WHITE, stringToOutput);
+	        FileManager.getInstance().saveStringlnToFile(stringToOutput);
 	        it.remove(); // avoids a ConcurrentModificationException
 	    }
 	    stringToOutput = "Alphabet:";
-	    System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-	    saveStringlnToFile(stringToOutput);
+	    printColor(GREEN, WHITE, stringToOutput);
+	    FileManager.getInstance().saveStringlnToFile(stringToOutput);
 	    it = alphabet.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry<String, String> pairs = (Map.Entry<String, String>)it.next();
 	        stringToOutput = pairs.getKey() + " = " + pairs.getValue();
-	        System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-	        saveStringlnToFile(stringToOutput);
+	        printColor(GREEN, WHITE, stringToOutput);
+	        FileManager.getInstance().saveStringlnToFile(stringToOutput);
 	        it.remove(); // avoids a ConcurrentModificationException
 	    }
 	    stringToOutput = "Initial state: " + initialState;
-	    System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+	    printColor(GREEN, WHITE, stringToOutput);
+	    FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		for (int i = 0; i < finalStates.size(); i++) {
 			stringToOutput = "Final state #" + i + ": " + finalStates.get(i);
-			System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-			saveStringlnToFile(stringToOutput);
+			printColor(GREEN, WHITE, stringToOutput);
+			FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		}
 		stringToOutput = "Current state: " + currentState;
-		System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-		saveStringlnToFile("Current state: " + currentState);
+		printColor(GREEN, WHITE, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile("Current state: " + currentState);
 		endAnsi();
 	}
 	
 	public static synchronized void printAutomatonWrapperCurrent(AutomatonWrapper automaton, String currentState) {
 		initAnsi();
 		stringToOutput = "printAutomatonCurrent(AutomatonWrapper automaton, String currentState)";
-		System.out.println(ansi().bg(CYAN).fg(MAGENTA).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(CYAN, MAGENTA, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		stringToOutput = Calendar.getInstance().getTime().toString();
-		System.out.println(ansi().bg(YELLOW).fg(BLACK).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(YELLOW, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		stringToOutput = "Automaton name: " + automaton.getAutomatonName();
-		System.out.println(ansi().bg(WHITE).fg(BLACK).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(WHITE, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		stringToOutput = "Current state: " + currentState;
-		System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(GREEN, WHITE, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		endAnsi();
 	}
 	
-	public static synchronized void printBuilding(Building building) {
+	public static synchronized void printBuilding(iBuilding building) {
 		initAnsi();
 		stringToOutput = "printBuilding(Building building)";
-		System.out.println(ansi().bg(CYAN).fg(MAGENTA).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(CYAN, MAGENTA, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		stringToOutput = Calendar.getInstance().getTime().toString();
-		System.out.println(ansi().bg(YELLOW).fg(BLACK).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
-		stringToOutput = "Name: " + building.getName();
-		System.out.println(ansi().bg(WHITE).fg(BLACK).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(YELLOW, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
+		stringToOutput = "Name: " + building.getBuildingName();
+		printColor(WHITE, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		for (int i = 0; i < building.getRooms().size(); i++) {
 			stringToOutput = "Room #" + i + ": " + building.getRooms().get(i).getRoomName();
-			System.out.println(ansi().bg(GREEN).fg(WHITE).a(stringToOutput).reset());
-			saveStringlnToFile(stringToOutput);
+			printColor(GREEN, WHITE, stringToOutput);
+			FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		}
 		endAnsi();
 	}
 	
-	public static synchronized void printRoom(Room room) {
+	public static synchronized void printRoom(iRoom room) {
 		initAnsi();
 		stringToOutput = "printRoom(Room room)";
-		System.out.println(ansi().bg(CYAN).fg(MAGENTA).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(CYAN, MAGENTA, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		stringToOutput = Calendar.getInstance().getTime().toString();
-		System.out.println(ansi().bg(YELLOW).fg(BLACK).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(YELLOW, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
 		stringToOutput = "Name: " + room.getRoomName();
-		System.out.println(ansi().bg(WHITE).fg(BLACK).a(stringToOutput).reset());
-		saveStringlnToFile(stringToOutput);
+		printColor(WHITE, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
+		for (int i = 0; i < room.getAutomatonWrappers().size(); i++) {
+			stringToOutput = "Automaton wrapper #" + i + ": " + room.getAutomatonWrappers().get(i).getAutomatonName();
+			printColor(GREEN, WHITE, stringToOutput);
+			FileManager.getInstance().saveStringlnToFile(stringToOutput);
+		}
 		endAnsi();
 	}
 	
