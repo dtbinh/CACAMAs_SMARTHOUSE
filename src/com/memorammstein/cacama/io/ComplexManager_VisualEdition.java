@@ -96,18 +96,22 @@ public class ComplexManager_VisualEdition implements Runnable {
 								int selectedOption = JOptionPane.showConfirmDialog(null, tempMessage, "Are you sure about your query? Press OK to continue", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 								if (selectedOption == JOptionPane.OK_OPTION) {
 									buildings.get(Integer.parseInt(command[1])).getRooms().get(Integer.parseInt(command[3])).getAutomatonWrappers().get(Integer.parseInt(command[5])).feed(command[7]);
+									lblNull.setText("Automaton fed by user (see log for appretiation of state change)");
+								} else {
+									lblNull.setText("Query cancelled");
 								}
 								break;
 							}
 							break;
 						case "disable":
 							buildings.get(Integer.parseInt(command[1])).getRooms().get(Integer.parseInt(command[3])).disable();
+							lblNull.setText("Room disabled -> all automata off");
 							break;
 						}
 						break;
 					case "disable":
 						buildings.get(Integer.parseInt(command[1])).disable();
-						lblNull.setText("Building disabled");
+						lblNull.setText("Building disabled -> all rooms off");
 						break;
 					}
 					break;
