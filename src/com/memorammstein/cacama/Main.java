@@ -1,10 +1,16 @@
 package com.memorammstein.cacama;
 
+import java.util.ArrayList;
+
+import com.memorammstein.cacama.io.ComplexManager_VisualEdition;
 import com.memorammstein.cacama.smarthouse.Building;
 import com.memorammstein.cacama.smarthouse.Room;
+import com.memorammstein.cacama.smarthouse.iBuilding;
 
 public class Main {
 	public static void main(String[] args) {
+		ArrayList<iBuilding> buildings = new ArrayList<iBuilding>();
+		
 		Building building = new Building("Casa de Memo");
 		Room bathroom = new Room(building.getBuildingName() + ": " + "Baño");
 		Room bedroom = new Room(building.getBuildingName() + ": " + "Cuarto");
@@ -20,6 +26,12 @@ public class Main {
 		building2.addRoom(bathroom2);
 		building2.addRoom(bedroom2);
 		building2.addRoom(lobby2);
-		building2.start();
+		buildings.add(building);
+		buildings.add(building2);
+		for (iBuilding buildingIteration : buildings) {
+			buildingIteration.start();
+		}
+		ComplexManager_VisualEdition cm = new ComplexManager_VisualEdition(buildings);
+		cm.start();
 	}
 }

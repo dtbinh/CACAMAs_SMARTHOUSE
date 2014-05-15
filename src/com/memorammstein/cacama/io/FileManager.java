@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.fusesource.jansi.Ansi.Color;
 
 import com.memorammstein.cacama.config.Configuration;
@@ -48,7 +49,7 @@ public class FileManager {
 			bw.write(string);
 			bw.newLine();
 		    bw.flush();
-		    String html = "<span style=\"color: " + foreground + "; background: " + background + "; font-family: Arial, \"Helvetica Neue\", Helvetica, sans-serif;\">" + string + "</span><br>";
+		    String html = "<span style=\"color: " + foreground + "; background: " + background + "; font-family: Arial, \"Helvetica Neue\", Helvetica, sans-serif;\">" + StringEscapeUtils.escapeHtml4(string) + "</span><br>";
 		    wbw = new BufferedWriter(new FileWriter(logWebpageFilename, true));
 		    wbw.write(html);
 		    wbw.newLine();
