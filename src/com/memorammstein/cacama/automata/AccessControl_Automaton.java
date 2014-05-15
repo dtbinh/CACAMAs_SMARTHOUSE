@@ -67,7 +67,7 @@ public class AccessControl_Automaton {
 	private static State[] finalStates = {State.q8};
 	
 	public void transitionFunction(Alphabet symbol) {
-		switch (currentState) {
+		switch (getCurrentState()) {
 		case q0:
 			switch (symbol) {
 			case digit1:

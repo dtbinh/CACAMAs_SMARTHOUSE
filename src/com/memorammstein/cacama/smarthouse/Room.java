@@ -13,6 +13,7 @@ public class Room implements iRoom {
 	private Temperature temperature = null;
 	private Ilumination ilumination = null;
 	private Security security = null;
+	private Energy energy = null;
 	
 	public Room(String roomName) {
 		setRoomName(roomName);
@@ -21,10 +22,12 @@ public class Room implements iRoom {
 		temperature = new Temperature(this.getRoomName() + ": " + "Temperatura");
 		ilumination = new Ilumination(this.getRoomName() + ": " + "Iluminación");
 		security = new Security(this.getRoomName() + ": " + "Seguridad");
+		energy = new Energy(this.getRoomName() + ": " + "Energía");
 		addAutomaton(accessControl);
 		addAutomaton(temperature);
 		addAutomaton(ilumination);
 		addAutomaton(security);
+		addAutomaton(energy);
 	}
 	
 	public String getRoomName() {

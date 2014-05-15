@@ -147,4 +147,21 @@ public class OutputManager {
 		endAnsi();
 	}
 	
+	public static synchronized void printComplexManagerAction(String action, String subject) {
+		initAnsi();
+		stringToOutput = "printComplexManagerAction(String action, String subject)";
+		printColor(CYAN, MAGENTA, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
+		stringToOutput = Calendar.getInstance().getTime().toString();
+		printColor(YELLOW, BLACK, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
+		stringToOutput = "Action: " + action;
+		printColor(RED, WHITE, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
+		stringToOutput = "Subject: " + subject;
+		printColor(RED, WHITE, stringToOutput);
+		FileManager.getInstance().saveStringlnToFile(stringToOutput);
+		endAnsi();
+	}
+	
 }

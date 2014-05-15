@@ -28,7 +28,7 @@ public class Configuration {
 		return config;
 	}
 	
-	public void initialConfig() {
+	public synchronized void initialConfig() {
 		prop = new Properties();
 		output = null;
 		if (isPropertiesFileEmptyOrDoesntExist()) {
@@ -38,7 +38,7 @@ public class Configuration {
 		 
 				prop.setProperty("I_exist", "yes");
 				prop.setProperty("PrintColor", "true");
-				prop.setProperty("RefreshTimeInMillis", "1500");
+				prop.setProperty("RefreshTimeInMillis", "10000");
 				prop.setProperty("logFilename", "outputManager.log");
 				prop.setProperty("temperature_minimum", "22.5");
 				prop.setProperty("temperature_maximum", "24.85");
@@ -68,7 +68,7 @@ public class Configuration {
 		}
 	}
 	
-	private boolean isPropertiesFileEmptyOrDoesntExist() {
+	private synchronized boolean isPropertiesFileEmptyOrDoesntExist() {
 		prop = new Properties();
 		input = null;
 		
