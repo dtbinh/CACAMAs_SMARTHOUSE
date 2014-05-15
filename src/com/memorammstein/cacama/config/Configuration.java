@@ -41,6 +41,8 @@ public class Configuration {
 				prop.setProperty("logFilename", "outputManager.log");
 				prop.setProperty("temperature_minimum", "22.5");
 				prop.setProperty("temperature_maximum", "24.85");
+				prop.setProperty("ilumination_minimum", "15");
+				prop.setProperty("ilumination_maximum", "85");
 				//each password digit must be diferent
 				prop.setProperty("AccessControl_pass_digit1", "0");
 				prop.setProperty("AccessControl_pass_digit2", "1");

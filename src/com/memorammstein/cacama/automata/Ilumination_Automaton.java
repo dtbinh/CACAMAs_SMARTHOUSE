@@ -1,11 +1,11 @@
 package com.memorammstein.cacama.automata;
 
-public class Temperature_Automaton {
+public class Ilumination_Automaton {
 
 	public enum State {
 		q0 ("in range"),
-		q1 ("too cold"),
-		q2 ("too hot");
+		q1 ("too dark"),
+		q2 ("too bright");
 		
 		private String stateString;
 		

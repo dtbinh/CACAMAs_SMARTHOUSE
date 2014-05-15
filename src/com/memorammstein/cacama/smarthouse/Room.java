@@ -13,14 +13,17 @@ public class Room implements Runnable {
 	
 	private AccessControl accessControl = null;
 	private Temperature temperature = null;
+	private Ilumination ilumination = null;
 	
 	public Room(String roomName) {
 		setRoomName(roomName);
 		automatons = new ArrayList<AutomatonWrapper>();
 		accessControl = new AccessControl(this.getRoomName() + ": " + "Control de acceso");
 		temperature = new Temperature(this.getRoomName() + ": " + "Temperatura");
+		ilumination = new Ilumination(this.getRoomName() + ": " + "Iluminación");
 		addAutomaton(accessControl);
 		addAutomaton(temperature);
+		addAutomaton(ilumination);
 	}
 	
 	public String getRoomName() {

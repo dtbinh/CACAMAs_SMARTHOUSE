@@ -6,18 +6,18 @@ import java.util.Map;
 
 import com.memorammstein.cacama.config.Configuration;
 
-public class Temperature implements AutomatonWrapper {
+public class Ilumination implements AutomatonWrapper {
 	
 	private Temperature_Automaton automaton = null;
 	private String automatonName = null;
 	private boolean enabled = false;
-	private Map<String, Double> range = null;
+	private Map<String, Integer> range = null;
 	
-	public Temperature(String name) {
+	public Ilumination(String name) {
 		setAutomatonName(name);
-		range = new HashMap<String, Double>();
-		range.put("minimum", Double.parseDouble(Configuration.getInstance().getProperty("temperature_minimum")));
-		range.put("maximum", Double.parseDouble(Configuration.getInstance().getProperty("temperature_maximum")));
+		range = new HashMap<String, Integer>();
+		range.put("minimum", Integer.parseInt(Configuration.getInstance().getProperty("ilumination_minimum")));
+		range.put("maximum", Integer.parseInt(Configuration.getInstance().getProperty("ilumination_maximum")));
 		automaton = new Temperature_Automaton();
 		this.enable();
 	}
@@ -39,7 +39,7 @@ public class Temperature implements AutomatonWrapper {
 	}
 	
 	/**
-	 * @param symbol double as a string
+	 * @param symbol integer as a string, percentage representation
 	 */
 	public void feed(String wrapperSymbol) {
 		Temperature_Automaton.Alphabet symbol = null;
