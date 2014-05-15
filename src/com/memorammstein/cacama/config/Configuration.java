@@ -39,6 +39,8 @@ public class Configuration {
 				prop.setProperty("I_exist", "yes");
 				prop.setProperty("RefreshTimeInMillis", "1500");
 				prop.setProperty("logFilename", "outputManager.log");
+				prop.setProperty("temperature_minimum", "22.5");
+				prop.setProperty("temperature_maximum", "24.85");
 				//each password digit must be diferent
 				prop.setProperty("AccessControl_pass_digit1", "0");
 				prop.setProperty("AccessControl_pass_digit2", "1");

@@ -39,7 +39,7 @@ public class AccessControl implements AutomatonWrapper {
 	public AccessControl(String name) {
 		setAutomatonName(name);
 		automaton = new AccessControl_Automaton();
-		enable();
+		this.enable();
 	}
 	
 	public String getAutomatonName() {

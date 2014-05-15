@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.memorammstein.cacama.automata.AccessControl;
 import com.memorammstein.cacama.automata.AutomatonWrapper;
+import com.memorammstein.cacama.automata.*;
 
 public class Room implements Runnable {
 	
@@ -11,12 +12,15 @@ public class Room implements Runnable {
 	private ArrayList<AutomatonWrapper> automatons = null;
 	
 	private AccessControl accessControl = null;
+	private Temperature temperature = null;
 	
 	public Room(String roomName) {
 		setRoomName(roomName);
 		automatons = new ArrayList<AutomatonWrapper>();
 		accessControl = new AccessControl(this.getRoomName() + ": " + "Control de acceso");
+		temperature = new Temperature(this.getRoomName() + ": " + "Temperatura");
 		addAutomaton(accessControl);
+		addAutomaton(temperature);
 	}
 	
 	public String getRoomName() {
