@@ -40,7 +40,7 @@ public class Security implements AutomatonWrapper {
 	}
 	
 	/**
-	 * @param symbol "alarm: off", "alarm: on", "motion: off", "motion: on", "access: off", "access: on"
+	 * @param symbol "alarm-> off", "alarm-> on", "motion-> off", "motion-> on", "access-> off", "access-> on"
 	 */
 	public void feed(String wrapperSymbol) {
 		Security_Automaton.Alphabet symbol = null;

@@ -20,10 +20,10 @@ public class Energy_Automaton {
 	}
 	
 	public enum Alphabet {
-		programmedTurnoffEffective ("programmed turn-off: effective"),
-		programmedTurnoffIneffective ("programmed turn-off: in effective"),
-		motionOff ("motion: off"),
-		motionOn ("motion: on");
+		programmedTurnoffEffective ("programmed turn-off-> effective"),
+		programmedTurnoffIneffective ("programmed turn-off-> in effective"),
+		motionOff ("motion-> off"),
+		motionOn ("motion-> on");
 		
 		private String symbol;
 		

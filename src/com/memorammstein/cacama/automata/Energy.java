@@ -39,7 +39,7 @@ public class Energy implements AutomatonWrapper {
 	}
 	
 	/**
-	 * @param symbol "programmed turn-off: in effective", "programmed turn-off: effective", "motion: off", "motion: on"
+	 * @param symbol "programmed turn-off-> in effective", "programmed turn-off-> effective", "motion-> off", "motion-> on"
 	 */
 	public void feed(String wrapperSymbol) {
 		Energy_Automaton.Alphabet symbol = null;

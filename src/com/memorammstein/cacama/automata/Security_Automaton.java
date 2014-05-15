@@ -20,12 +20,12 @@ public class Security_Automaton {
 	}
 	
 	public enum Alphabet {
-		alarmOff ("alarm: off"),
-		alarmOn ("alarm: on"),
-		motionOff ("motion: off"),
-		motionOn ("motion: on"),
-		accessOff ("access: off"),
-		accessOn ("access: on");
+		alarmOff ("alarm-> off"),
+		alarmOn ("alarm-> on"),
+		motionOff ("motion-> off"),
+		motionOn ("motion-> on"),
+		accessOff ("access-> off"),
+		accessOn ("access-> on");
 		
 		private String symbol;
 		

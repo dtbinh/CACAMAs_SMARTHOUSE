@@ -54,6 +54,7 @@ public class Ilumination_Automaton {
 	private static State[] finalStates = {State.q0};
 	
 	public void transitionFunction(Alphabet symbol) {
+		if(symbol != null)
 		switch (currentState) {
 		case q0:
 			switch (symbol) {
